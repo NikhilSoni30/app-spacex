@@ -10,7 +10,6 @@ export class ServerService {
     return this.http.get(url);
   }
   getFilteredList(year?: number, launch?: string, land?: string) {
-    debugger;
     let url = 'https://api.spaceXdata.com/v3/launches?limit=100';
     if (year != null) {
       url = 'https://api.spaceXdata.com/v3/launches?limit=100&launch_year=' + year;
