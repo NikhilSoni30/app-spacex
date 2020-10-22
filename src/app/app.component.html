@@ -1,0 +1,65 @@
+<div class="header">
+    <h2>SpaceX Launch Programs</h2>
+</div>
+<div class="sidenav">
+    <h4 style="margin-top: 5px; margin-left: 5px; text-align: left;">Filters</h4>
+    <div class="container">
+        <p>Launch Year</p>
+        <hr style="width:70%">
+        <span *ngFor="let btnValue of buttonVal; let i=index">
+            <input type="button"
+                [ngClass]="{'button': !buttonValMap.get(btnValue), 'buttonActive': buttonValMap.get(btnValue)}"
+                value="btnValue" (click)="buttonClicked($event)" [(ngModel)]="buttonVal[i]">
+        </span>
+    </div>
+    <div class="container">
+        <p>Successful Launch</p>
+        <hr style="width:70%">
+        <input type="button" [ngClass]="{'button': !launchSuccess, 'buttonActive': launchSuccess==true}" value="True"
+            (click)="launchSuccessButton(true)">
+        <input type="button" [ngClass]="{'button': launchSuccess!=false, 'buttonActive': launchSuccess==false}"
+            value="False" (click)="launchSuccessButton(false)">
+    </div>
+    <div class="container">
+        <p>Successful Landing</p>
+        <hr style="width:70%">
+        <input type="button" [ngClass]="{'button': !landingSuccess, 'buttonActive': landingSuccess==true}" value="True"
+            (click)="landingSuccessButton(true)">
+        <input type="button" [ngClass]="{'button': landingSuccess!=false, 'buttonActive': landingSuccess==false}"
+            value="False" (click)="landingSuccessButton(false)">
+    </div>
+
+</div>
+
+<div class="content">
+    <div class="row">
+
+
+
+        <div *ngFor="let launch of launchData;" class="column">
+            <div class="columnContainer">
+                <div class="imageBox">
+                    <img src="{{launch.imgSrc}}" width="160px">
+                </div>
+                <div style="text-align: left; padding-left:6px; font-size: 90%;">
+                    <p style="color: #574cfc;"><b>{{launch.missionName}} #{{launch.flightNumber}}</b></p>
+                    <p><b>Mission Ids: </b>
+                    <span *ngFor="let ids of launch.missionIds"><span class="blue">{{ids}} &nbsp;</span></span>
+                    </p>
+                    <p><b>Launch Year: </b><span class="blue">{{launch.launchYear}}</span></p>
+                    <p><b>Successful Launch: </b> <span class="blue">{{launch.launchSuccess}}</span></p>
+                    <p><b>Successful Landing: </b> <span class="blue">{{landingSuccess}}</span></p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="column">Column</div>
+        <div class="column">Column</div>
+        <div class="column">Column</div> -->
+    </div>
+</div>
+
+
+<div class="footer">
+    <p><b>Developed By:</b> Nikhil Soni</p>
+</div>
+
