@@ -17,6 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   yearSelected: number;
   launchSuccess: any;
   landingSuccess: any;
+  noDetails: boolean = false;
   constructor(private service: ServerService) {}
 
   // tslint:disable: typedef
@@ -48,6 +49,11 @@ export class AppComponent implements OnInit, OnDestroy {
       launchObj.missionName = response[i].mission_name;
       launchObj.imgSrc = response[i].links.mission_patch_small;
       this.launchData.push(launchObj);
+    }
+    if (this.launchData.length === 0) {
+      this.noDetails = true;
+    } else {
+      this.noDetails = false;
     }
   }
   buttonClicked(event) {

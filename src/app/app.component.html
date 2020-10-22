@@ -33,9 +33,6 @@
 
 <div class="content">
     <div class="row">
-
-
-
         <div *ngFor="let launch of launchData;" class="column">
             <div class="columnContainer">
                 <div class="imageBox">
@@ -52,9 +49,11 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="column">Column</div>
-        <div class="column">Column</div>
-        <div class="column">Column</div> -->
+        <div *ngIf = "noDetails" class="column"> 
+            <div class="columnContainer">
+                <h4>Sorry, there no launches for the filters you chose.</h4>
+            </div>
+        </div>
     </div>
 </div>
 
