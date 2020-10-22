@@ -83,6 +83,9 @@
   .column {
     width: 100%;
   }
+  .footer {
+    float: right;
+  }
 }
 .blue {
   color: #574cfc;
