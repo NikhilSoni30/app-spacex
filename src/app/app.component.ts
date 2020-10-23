@@ -28,6 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.buttonValMap.set(i, false);
     }
   }
+  // This will be used to call the API for getting data list when user is loading the website for the first time without any filters.
   loadLandingList() {
     this.subscription = this.service.getLandingList().subscribe((response: any[]) => {
       this.setLaunchDisplayData(response);
@@ -37,6 +38,7 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     );
   }
+  // Setting the response from API in local variable to display on page.
   setLaunchDisplayData(response) {
     this.launchData = [];
     for (let i = 0; i < response.length; i++) {
@@ -50,12 +52,15 @@ export class AppComponent implements OnInit, OnDestroy {
       launchObj.imgSrc = response[i].links.mission_patch_small;
       this.launchData.push(launchObj);
     }
+    // To show message when there is no data returned from API call.
     if (this.launchData.length === 0) {
       this.noDetails = true;
     } else {
       this.noDetails = false;
     }
   }
+  
+  // Function triggered when year button is clicked: Used true-false map onyear list to display active/inactive css on button.
   buttonClicked(event) {
     const year = Number(event.target.value);
     if (this.buttonValMap.get(year) === true) {
@@ -71,6 +76,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.getFilteredLaunchList();
   }
 
+  // Triggers every time a filter is selected on screen.
   getFilteredLaunchList() {
     this.subscription = this.service.getFilteredList(this.yearSelected, this.launchSuccess, this.landingSuccess).subscribe(response => {
       this.setLaunchDisplayData(response);
@@ -78,6 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
       throw error;
     });
   }
+  // Function for launch filter button: Maintained a flag for showing active/Inactive css.
   launchSuccessButton(action) {
     if (action === true) {
       if (this.launchSuccess === true) {
@@ -95,6 +102,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.getFilteredLaunchList();
   }
+  // Function for land filter button: Maintained a flag for showing active/Inactive css.
   landingSuccessButton(action) {
     if (action === true) {
       if (this.landingSuccess === true) {
@@ -112,6 +120,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.getFilteredLaunchList();
   }
+  
   ngOnDestroy() {
     if (this.subscription != null) {
       this.subscription.unsubscribe();
