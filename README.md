@@ -7,13 +7,12 @@ Server start:
 Compiling Command:
 "ng serve"
 
-# Used Tortoise Git to sync remote to orgin.
+# Technology Stack:
 
-# The app is build on Angular 10 using TypeScript - HTML5 - CSS and IDE used: Visual Studio Code on Windows 10.
-
-# Version control: Tortoise git - gitHub
-
-# Deployment: Heroku
+- Used Tortoise Git to sync remote to orgin.
+- The app is build on Angular 10 using TypeScript - HTML5 - CSS and IDE used: Visual Studio Code on Windows 10.
+- Version control: Tortoise git - gitHub
+- Deployment: Heroku
 
 # The app has a header with app title, a side division with filters, a content block which cover most of the screen- it has the listed out data based on filters and a footer.
 
