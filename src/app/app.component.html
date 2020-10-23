@@ -1,8 +1,8 @@
 <div class="header">
-    <h2>SpaceX Launch Programs</h2>
+    <p>SpaceX Launch Programs</p>
 </div>
 <div class="sidenav">
-    <h4 style="margin-top: 5px; margin-left: 5px; text-align: left;">Filters</h4>
+    <p class="headNav">Filters</p>
     <div class="container">
         <p>Launch Year</p>
         <hr style="width:70%">
@@ -34,24 +34,25 @@
 <div class="content">
     <div class="row">
         <div *ngFor="let launch of launchData;" class="column">
-            <div class="columnContainer">
-                <div class="imageBox">
-                    <img src="{{launch.imgSrc}}" width="160px">
+            <div class="columnContainer" style="text-align:center; width:100%;">
+                <div class="imageBox" style="width:85%;">
+                    <img src="{{launch.imgSrc}}" class="image">
                 </div>
-                <div style="text-align: left; padding-left:6px; font-size: 90%;">
+                <div style="text-align: left; padding-left:6px; font-size: 90%; width:100%;">
                     <p style="color: #574cfc;"><b>{{launch.missionName}} #{{launch.flightNumber}}</b></p>
                     <p><b>Mission Ids: </b>
-                    <span *ngFor="let ids of launch.missionIds"><span class="blue">{{ids}} &nbsp;</span></span>
+                    <span style="color: #574cfc;" *ngFor="let ids of launch.missionIds"><span>{{ids}} &nbsp;</span></span>
                     </p>
-                    <p><b>Launch Year: </b><span class="blue">{{launch.launchYear}}</span></p>
-                    <p><b>Successful Launch: </b> <span class="blue">{{launch.launchSuccess}}</span></p>
-                    <p><b>Successful Landing: </b> <span class="blue">{{landingSuccess}}</span></p>
+                    <p><b>Launch Year: </b><span style="color: #574cfc;">{{launch.launchYear}}</span></p>
+                    <p><b>Successful Launch: </b> <span style="color: #574cfc;">{{launch.launchSuccess}}</span></p>
+                    <p><b>Successful Landing: </b> <span style="color: #574cfc;">{{launch.landSuccess}}</span></p>
                 </div>
+
             </div>
         </div>
         <div *ngIf = "noDetails" class="column"> 
             <div class="columnContainer">
-                <h4>Sorry, there no launches for the filters you chose.</h4>
+                <p><b>Sorry, there no launches for the filters you chose.</b></p>
             </div>
         </div>
     </div>

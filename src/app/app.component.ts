@@ -44,7 +44,11 @@ export class AppComponent implements OnInit, OnDestroy {
     for (let i = 0; i < response.length; i++) {
       const launchObj = new LaunchDetails();
       launchObj.flightNumber = response[i].flight_number;
-      launchObj.landSuccess = response[i].launch_landing;
+      if (response[i].rocket.first_stage.cores[0].land_success === true) {
+        launchObj.landSuccess = response[i].rocket.first_stage.cores[0].land_success;
+      } else {
+        launchObj.landSuccess = 'false';
+      }
       launchObj.launchSuccess = response[i].launch_success;
       launchObj.launchYear = response[i].launch_year;
       launchObj.missionIds = response[i].mission_id;

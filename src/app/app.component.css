@@ -1,7 +1,8 @@
 .header {
   padding: 5px;
   text-align: left;
-  font-size: 15px;
+  font-size: medium;
+  font-weight: bold;
 }
 .row {
   display: flex;
@@ -42,6 +43,7 @@
   width: 180px;
   margin-left: 15px;
   margin-top: 10px;
+  padding: 2px;
 }
 .content {
   margin-left: 200px;
@@ -79,14 +81,28 @@
   cursor: pointer;
   border-radius: 3px;
 }
-@media screen and (max-width: 600px) {
+.image {
+  width: 160px;
+}
+@media screen and (max-width: 700px) {
   .column {
     width: 100%;
   }
   .footer {
     float: right;
   }
+  .imageBox {
+    margin-left: 10px;
+  }
+  .image {
+    width: 140px;
+  }
 }
-.blue {
-  color: #574cfc;
+
+.headNav {
+  margin-top: 5px;
+  margin-left: 5px;
+  text-align: left;
+  font-size: medium;
+  font-weight: bold;
 }
