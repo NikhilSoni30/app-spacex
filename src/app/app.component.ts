@@ -12,7 +12,6 @@ export class AppComponent implements OnInit {
   @ViewChild('launchListComponent', {static: true}) launchListComponent: LaunchListComponent;
   title = 'spacex-app';
   subscription: Subscription;
-
   buttonValMap: Map<number, boolean> = new Map();
   buttonVal = [];
   yearSelected: number;
