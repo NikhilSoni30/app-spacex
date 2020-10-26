@@ -1,6 +1,6 @@
-<div class="header">
+<header class="header">
     <p>SpaceX Launch Programs</p>
-</div>
+</header>
 <div class="sidenav">
     <p class="headNav">Filters</p>
     <div class="container">
@@ -9,57 +9,31 @@
         <span *ngFor="let btnValue of buttonVal; let i=index">
             <input type="button"
                 [ngClass]="{'button': !buttonValMap.get(btnValue), 'buttonActive': buttonValMap.get(btnValue)}"
-                value="btnValue" (click)="buttonClicked($event)" [(ngModel)]="buttonVal[i]">
+                value="btnValue" (click)="yearsButtonClicked($event)" [(ngModel)]="buttonVal[i]">
         </span>
     </div>
     <div class="container">
         <p>Successful Launch</p>
         <hr style="width:70%">
         <input type="button" [ngClass]="{'button': !launchSuccess, 'buttonActive': launchSuccess==true}" value="True"
-            (click)="launchSuccessButton(true)">
+            (click)="launchSuccessButtonClicked(true)">
         <input type="button" [ngClass]="{'button': launchSuccess!=false, 'buttonActive': launchSuccess==false}"
-            value="False" (click)="launchSuccessButton(false)">
+            value="False" (click)="launchSuccessButtonClicked(false)">
     </div>
     <div class="container">
         <p>Successful Landing</p>
         <hr style="width:70%">
         <input type="button" [ngClass]="{'button': !landingSuccess, 'buttonActive': landingSuccess==true}" value="True"
-            (click)="landingSuccessButton(true)">
+            (click)="landingSuccessButtonClicked(true)">
         <input type="button" [ngClass]="{'button': landingSuccess!=false, 'buttonActive': landingSuccess==false}"
-            value="False" (click)="landingSuccessButton(false)">
+            value="False" (click)="landingSuccessButtonClicked(false)">
     </div>
 
 </div>
 
-<div class="content">
-    <div class="row">
-        <div *ngFor="let launch of launchData;" class="column">
-            <div class="columnContainer" style="text-align:center;">
-                <div class="imageBox" style="width:85%;">
-                    <img src="{{launch.imgSrc}}" class="image">
-                </div>
-                <div style="text-align: left; padding-left:6px; font-size: 90%; width:100%;">
-                    <p style="color: #574cfc;"><b>{{launch.missionName}} #{{launch.flightNumber}}</b></p>
-                    <p><b>Mission Ids: </b>
-                    <span style="color: #574cfc;" *ngFor="let ids of launch.missionIds"><span>{{ids}} &nbsp;</span></span>
-                    </p>
-                    <p><b>Launch Year: </b><span style="color: #574cfc;">{{launch.launchYear}}</span></p>
-                    <p><b>Successful Launch: </b> <span style="color: #574cfc;">{{launch.launchSuccess}}</span></p>
-                    <p><b>Successful Landing: </b> <span style="color: #574cfc;">{{launch.landSuccess}}</span></p>
-                </div>
+<app-launch-list #launchListComponent></app-launch-list>
 
-            </div>
-        </div>
-        <div *ngIf = "noDetails" class="column"> 
-            <div class="columnContainer">
-                <p><b>Sorry, there no launches for the filters you chose.</b></p>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<div class="footer">
+<footer class="footer">
     <p><b>Developed By:</b> Nikhil Soni</p>
-</div>
+</footer>
 

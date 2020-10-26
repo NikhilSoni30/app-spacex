@@ -1,95 +1,52 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ServerService } from './app.service';
-import { LaunchDetails } from './app.interface';
+import { ServerService } from './services/app.service';
+import { LaunchListComponent } from './launch-list/launch-list.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
+  @ViewChild('launchListComponent', {static: true}) launchListComponent: LaunchListComponent;
   title = 'spacex-app';
   subscription: Subscription;
-  launchData: LaunchDetails[] = [];
+
   buttonValMap: Map<number, boolean> = new Map();
   buttonVal = [];
   yearSelected: number;
   launchSuccess: any;
   landingSuccess: any;
-  noDetails: boolean = false;
   constructor(private service: ServerService) {}
 
   // tslint:disable: typedef
   ngOnInit() {
-    this.loadLandingList();
+    this.launchListComponent.loadLandingList();
     for (let i = 2006; i <= 2020; i++) {
       this.buttonVal.push(i);
       this.buttonValMap.set(i, false);
     }
   }
-  // This will be used to call the API for getting data list when user is loading the website for the first time without any filters.
-  loadLandingList() {
-    this.subscription = this.service.getLandingList().subscribe((response: any[]) => {
-      this.setLaunchDisplayData(response);
-      },
-      (error) => {
-        throw error;
-      }
-    );
-  }
-  // Setting the response from API in local variable to display on page.
-  setLaunchDisplayData(response) {
-    this.launchData = [];
-    for (let i = 0; i < response.length; i++) {
-      const launchObj = new LaunchDetails();
-      launchObj.flightNumber = response[i].flight_number;
-      if (response[i].rocket.first_stage.cores[0].land_success === true) {
-        launchObj.landSuccess = response[i].rocket.first_stage.cores[0].land_success;
-      } else {
-        launchObj.landSuccess = 'false';
-      }
-      launchObj.launchSuccess = response[i].launch_success;
-      launchObj.launchYear = response[i].launch_year;
-      launchObj.missionIds = response[i].mission_id;
-      launchObj.missionName = response[i].mission_name;
-      launchObj.imgSrc = response[i].links.mission_patch_small;
-      this.launchData.push(launchObj);
-    }
-    // To show message when there is no data returned from API call.
-    if (this.launchData.length === 0) {
-      this.noDetails = true;
-    } else {
-      this.noDetails = false;
-    }
-  }
-  
+
   // Function triggered when year button is clicked: Used true-false map onyear list to display active/inactive css on button.
-  buttonClicked(event) {
+  yearsButtonClicked(event) {
     const year = Number(event.target.value);
     if (this.buttonValMap.get(year) === true) {
       this.buttonValMap.set(year, false);
       this.yearSelected = null;
     } else {
-      for (let key of this.buttonValMap.keys()) {
+      for (const key of this.buttonValMap.keys()) {
         this.buttonValMap.set(key, false);
       }
       this.yearSelected = year;
       this.buttonValMap.set(year, true);
     }
-    this.getFilteredLaunchList();
+    this.launchListComponent.getFilteredLaunchList(this.yearSelected, this.launchSuccess, this.landingSuccess);
   }
 
-  // Triggers every time a filter is selected on screen.
-  getFilteredLaunchList() {
-    this.subscription = this.service.getFilteredList(this.yearSelected, this.launchSuccess, this.landingSuccess).subscribe(response => {
-      this.setLaunchDisplayData(response);
-    }, error => {
-      throw error;
-    });
-  }
   // Function for launch filter button: Maintained a flag for showing active/Inactive css.
-  launchSuccessButton(action) {
+  launchSuccessButtonClicked(action) {
     if (action === true) {
       if (this.launchSuccess === true) {
         this.launchSuccess = null;
@@ -104,10 +61,11 @@ export class AppComponent implements OnInit, OnDestroy {
         this.launchSuccess = false;
       }
     }
-    this.getFilteredLaunchList();
+    this.launchListComponent.getFilteredLaunchList(this.yearSelected, this.launchSuccess, this.landingSuccess);
   }
+
   // Function for land filter button: Maintained a flag for showing active/Inactive css.
-  landingSuccessButton(action) {
+  landingSuccessButtonClicked(action) {
     if (action === true) {
       if (this.landingSuccess === true) {
         this.landingSuccess = null;
@@ -122,12 +80,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.landingSuccess = false;
       }
     }
-    this.getFilteredLaunchList();
-  }
-  
-  ngOnDestroy() {
-    if (this.subscription != null) {
-      this.subscription.unsubscribe();
-    }
+    this.launchListComponent.getFilteredLaunchList(this.yearSelected, this.launchSuccess, this.landingSuccess);
   }
 }
